@@ -2,8 +2,34 @@
   "name": "pi-cost",
   "version": "0.1.0",
   "description": "Cost dashboard for the pi coding agent",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "cost",
+    "dashboard",
+    "litellm",
+    "observability"
+  ],
+  "license": "MIT",
+  "author": "nikiforovall",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikiforovAll/pi-cost.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NikiforovAll/pi-cost/issues"
+  },
+  "homepage": "https://nikiforovall.github.io/pi-cost/",
   "bin": { "pi-cost": "./server.js" },
   "main": "server.js",
+  "files": [
+    "server.js",
+    "lib/",
+    "public/",
+    "extensions/",
+    "themes/",
+    "README.md"
+  ],
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js --open",
@@ -25,7 +51,9 @@
     "@earendil-works/pi-coding-agent": { "optional": true }
   },
   "pi": {
-    "extensions": ["./extensions"]
+    "extensions": ["./extensions"],
+    "image": "https://raw.githubusercontent.com/NikiforovAll/pi-cost/main/assets/overview.png",
+    "video": "https://raw.githubusercontent.com/NikiforovAll/pi-cost/main/assets/demo.mp4"
   },
   "engines": {
     "node": ">=20.0.0"
