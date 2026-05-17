@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pi-cost-v1';
+const CACHE_NAME = 'pi-cost-v3';
 const PRECACHE_URLS = ['/', '/style.css', '/app.js'];
 
 let cachePromise = null;

@@ -1219,6 +1219,14 @@ function dismissToast(el) { if (el) el.remove(); }
 
 // #endregion
 
+// #region PWA
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
+
+// #endregion
+
 // #region INIT
 
 loadTheme();
