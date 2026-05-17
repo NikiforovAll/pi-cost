@@ -1,0 +1,33 @@
+{
+  "name": "pi-cost",
+  "version": "0.1.0",
+  "description": "Cost dashboard for the pi coding agent",
+  "bin": { "pi-cost": "./server.js" },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js --open",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "open": "^10.1.0"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": { "optional": true }
+  },
+  "pi": {
+    "extensions": ["./extensions"]
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

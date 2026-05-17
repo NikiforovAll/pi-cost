@@ -1,0 +1,9 @@
+{
+  "name": "pi-cost",
+  "short_name": "pi-cost",
+  "description": "Cost dashboard for the pi coding agent",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#101114",
+  "theme_color": "#e86f33"
+}
