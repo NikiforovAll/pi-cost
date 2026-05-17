@@ -1,6 +1,48 @@
 # pi-cost user guide
 
-A walkthrough of the dashboard and `/cost` commands. For installation, see the [README](https://github.com/NikiforovAll/pi-cost#installation). For theme authoring, see [Theming](./theming.md).
+A walkthrough of the dashboard and `/cost` commands. For theme authoring, see [Theming](./theming.md).
+
+## Getting started
+
+pi-cost ships as a [pi](https://pi.dev) extension and a standalone npm package. The fastest path is to install it into pi, then drive it with `/cost` slash commands.
+
+### Install
+
+```sh
+pi install npm:pi-cost
+```
+
+This registers the `/cost` command inside pi. No further configuration is required — the dashboard reads pi's session logs from `~/.pi/agent/sessions/` directly.
+
+### Start the dashboard
+
+From inside any pi session:
+
+```text
+/cost start
+```
+
+The extension spawns the dashboard server in the background on port **5461** and reports back when it is ready.
+
+### Open the dashboard
+
+```text
+/cost open
+```
+
+Opens `http://localhost:5461` in your default browser. The Overview view loads with aggregate spend across every project pi has touched.
+
+That's it — the rest of this guide describes what you'll see and how to navigate it.
+
+### Without pi
+
+If you don't use pi (or just want to peek at the UI), run the server directly:
+
+```sh
+npx pi-cost           # http://localhost:5461
+```
+
+The dashboard will be empty unless `~/.pi/agent/sessions/` contains session JSONL.
 
 ## Slash commands
 
@@ -13,12 +55,6 @@ Run from inside pi (the extension registers `/cost`):
 | `/cost restart`  | Restart the server (picks up theme/config changes)   |
 | `/cost status`   | Show whether the server is running                   |
 | `/cost open`     | Open the dashboard in the default browser            |
-
-Standalone (no pi required):
-
-```sh
-npx pi-cost           # http://localhost:5461
-```
 
 ## Layout
 
