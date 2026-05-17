@@ -1,9 +1,3 @@
 node_modules/
 docs/.vitepress/cache
 docs/.vitepress/dist
-
-# local scratch
-context.md
-AGENTS.md
-*.yaml
-!after-forward.yaml.example

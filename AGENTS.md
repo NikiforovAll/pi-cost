@@ -1,0 +1,1 @@
+C:/Users/nikiforovall/dev/pi-cost/CLAUDE.md
