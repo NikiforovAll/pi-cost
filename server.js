@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
+const http = require('node:http');
 const express = require('express');
 const path = require('node:path');
 const fsp = require('node:fs/promises');
@@ -644,7 +645,7 @@ loadAllThemes().then(() => {
   console.log(`themes loaded: ${themes.size} (user dir: ${USER_THEME_DIR})`);
 }).catch((e) => console.warn('themes: load failed:', e.message));
 
-const server = app.listen(PORT, () => {
+const server = http.createServer({ maxHeaderSize: 32768 }, app).listen(PORT, () => {
   const actualPort = server.address().port;
   console.log(`pi-cost dashboard running at http://localhost:${actualPort}`);
   console.log(`Sessions dir: ${parsers.getSessionsDir()}`);
@@ -656,7 +657,7 @@ const server = app.listen(PORT, () => {
 server.on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
     console.log(`Port ${PORT} in use, trying random port...`);
-    const fallback = app.listen(0, () => {
+    const fallback = http.createServer({ maxHeaderSize: 32768 }, app).listen(0, () => {
       const p = fallback.address().port;
       console.log(`pi-cost dashboard running at http://localhost:${p}`);
       if (process.argv.includes('--open')) {
