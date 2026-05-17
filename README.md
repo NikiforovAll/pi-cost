@@ -1,5 +1,8 @@
 # pi-cost
 
+[![npm version](https://img.shields.io/npm/v/pi-cost.svg)](https://www.npmjs.com/package/pi-cost)
+[![npm downloads](https://img.shields.io/npm/dm/pi-cost.svg)](https://www.npmjs.com/package/pi-cost)
+
 Cost dashboard for the [pi coding agent](https://pi.dev) — overview → project → session → message, with actual and estimated spend.
 
 [![pi-cost demo](./assets/session-light.png)](https://github.com/user-attachments/assets/f9383f3f-4379-4ca6-b920-badb35f5eea8)
