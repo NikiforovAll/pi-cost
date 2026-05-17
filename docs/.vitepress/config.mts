@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
   title: 'pi-cost',
   description: 'Cost dashboard for the pi coding agent.',
-  base: '/pi-cost/docs/',
+  base: '/pi-cost/',
   cleanUrls: true,
   ignoreDeadLinks: true,
   appearance: 'dark',

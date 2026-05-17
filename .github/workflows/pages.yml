@@ -23,14 +23,10 @@ jobs:
       - run: npm install
       - name: Build docs
         run: npm run docs:build
-      - name: Stage site under /docs/
-        run: |
-          mkdir -p dist/docs
-          cp -r docs/.vitepress/dist/. dist/docs/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: docs/.vitepress/dist
 
   deploy:
     needs: build

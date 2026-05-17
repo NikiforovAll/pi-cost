@@ -1,6 +1,6 @@
 # pi-cost user guide
 
-A walkthrough of the dashboard and `/cost` commands. For installation, see the [README](https://github.com/NikiforovAll/pi-cost#getting-started). For theme authoring, see [Theming](./theming.md).
+A walkthrough of the dashboard and `/cost` commands. For installation, see the [README](https://github.com/NikiforovAll/pi-cost#installation). For theme authoring, see [Theming](./theming.md).
 
 ## Slash commands
 
@@ -8,7 +8,7 @@ Run from inside pi (the extension registers `/cost`):
 
 | Command          | What it does                                        |
 | ---------------- | --------------------------------------------------- |
-| `/cost start`    | Start the local server (port 3461) in the background |
+| `/cost start`    | Start the local server (port 5461) in the background |
 | `/cost stop`     | Stop the running server                              |
 | `/cost restart`  | Restart the server (picks up theme/config changes)   |
 | `/cost status`   | Show whether the server is running                   |
@@ -17,25 +17,30 @@ Run from inside pi (the extension registers `/cost`):
 Standalone (no pi required):
 
 ```sh
-npx pi-cost           # http://localhost:3461
+npx pi-cost           # http://localhost:5461
 ```
 
 ## Layout
 
-pi-cost has three views, navigated by hash route:
+pi-cost has three views, navigated by hash route.
 
-| View      | Route                       | Preview                                     |
-| --------- | --------------------------- | ------------------------------------------- |
-| Overview  | `#/`                        | ![Overview](https://raw.githubusercontent.com/NikiforovAll/pi-cost/main/assets/overview.png) |
-| Projects  | `#/projects`                |                                             |
-| Project   | `#/projects/:encoded`       | ![Project](https://raw.githubusercontent.com/NikiforovAll/pi-cost/main/assets/project.png)   |
-| Session   | `#/sessions/:id`            | ![Session](https://raw.githubusercontent.com/NikiforovAll/pi-cost/main/assets/session.png)   |
+### Overview — `#/`
 
-- **Overview** — aggregate spend across all projects with daily/model breakdowns.
-- **Project** — per-session list for one project, plus model totals.
-- **Session** — per-message detail: model, tokens (input / output / cache read / cache write), and cost with a source badge.
+Aggregate spend across all projects with daily and per-model breakdowns. The landing view.
 
-`:encoded` is the URL-encoded project directory (pi encodes paths like `--C--Users-foo-bar--` ↔ `C:\Users\foo\bar`).
+![Overview](https://raw.githubusercontent.com/NikiforovAll/pi-cost/main/assets/overview.png)
+
+### Project — `#/projects/:encoded`
+
+Per-session list for one project, plus model totals for that project. `:encoded` is the URL-encoded project directory (pi encodes paths like `--C--Users-foo-bar--` ↔ `C:\Users\foo\bar`).
+
+![Project](https://raw.githubusercontent.com/NikiforovAll/pi-cost/main/assets/project.png)
+
+### Session — `#/sessions/:id`
+
+Per-message detail: model, tokens (input / output / cache read / cache write), and cost with a source badge.
+
+![Session](https://raw.githubusercontent.com/NikiforovAll/pi-cost/main/assets/session.png)
 
 ## Cost sources
 
@@ -53,7 +58,17 @@ The per-message fallback chain:
 2. else `pi-pricing` lookup against the LiteLLM table → **estimated**
 3. else `0` → **none**
 
-Session and project totals sum across all three, so subscription providers always get a nonzero estimate.
+Session and project totals sum across all three, so subscription providers always get a nonzero estimate. Badges render inline in the session view above — look for `jsonl` / `pricing` chips next to each row's cost.
+
+## Themes
+
+Press `t` (or the topbar toggle) to flip between the configured light and dark themes. Same session, two looks:
+
+| Dark                                                | Light                                                          |
+| --------------------------------------------------- | -------------------------------------------------------------- |
+| ![Session dark](https://raw.githubusercontent.com/NikiforovAll/pi-cost/main/assets/session.png) | ![Session light](https://raw.githubusercontent.com/NikiforovAll/pi-cost/main/assets/session-light.png) |
+
+Four built-in themes ship out of the box (`pi-light`, `pi-dark`, `classic-light`, `classic-dark`); drop your own JSON in `~/.pi/agent/cost/themes/`. See [Theming](./theming.md).
 
 ## Refreshing data
 
@@ -93,4 +108,4 @@ Environment variables (take precedence — useful for one-off runs):
 | `COST_DARK_THEME`  | Theme ID used in dark mode              |
 | `COST_THEME_DIR`   | Directory to load user themes from      |
 
-The server listens on port **3461** (sibling project pi-kanban uses 3460 — they don't collide).
+The server listens on port **5461** (sibling project pi-kanban uses 3460 — they don't collide).

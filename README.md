@@ -2,11 +2,11 @@
 
 Cost dashboard for the [pi coding agent](https://pi.dev) — overview → project → session → message, with actual and estimated spend.
 
-![pi-cost dashboard](./assets/overview.png)
+![pi-cost dashboard](./assets/session-light.png)
 
 ## Documentation
 
-**[→ See the documentation](https://nikiforovall.github.io/pi-cost/docs/)**
+**[→ See the documentation](https://nikiforovall.github.io/pi-cost/)**
 
 User guide, cost-source model, keyboard shortcuts, and theme authoring all live there.
 
@@ -24,7 +24,7 @@ Or run standalone:
 npx pi-cost
 ```
 
-Open `http://localhost:3461` — `npm run dev` auto-opens the browser.
+Open `http://localhost:5461` — `npm run dev` auto-opens the browser.
 
 ### From source
 
@@ -32,7 +32,7 @@ Open `http://localhost:3461` — `npm run dev` auto-opens the browser.
 git clone https://github.com/NikiforovAll/pi-cost
 cd pi-cost
 npm install
-npm start              # http://localhost:3461
+npm start              # http://localhost:5461
 pi --add ./extensions  # register as a pi extension
 ```
 
