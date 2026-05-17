@@ -19,7 +19,7 @@ function getArg(name) {
   return process.argv[eqIdx + 1] || null;
 }
 
-const PORT = parseInt(getArg('port') || process.env.PORT || '3461', 10);
+const PORT = parseInt(getArg('port') || process.env.PORT || '5461', 10);
 
 // #endregion
 

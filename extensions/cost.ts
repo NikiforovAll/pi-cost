@@ -10,7 +10,7 @@ const extDir = fileURLToPath(new URL('.', import.meta.url));
 
 let child: ChildProcess | null = null;
 let lastStderr = "";
-const port = 3461;
+const port = 5461;
 
 const COST_DIR = joinPath(homedir(), ".pi", "agent", "cost");
 const SETTINGS_PATH = joinPath(COST_DIR, "settings.json");

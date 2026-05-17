@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 - `npm install` — install deps (`express`, `open`).
-- `npm start` — run server at `http://localhost:3461`.
+- `npm start` — run server at `http://localhost:5461`.
 - `npm run dev` — same, auto-opens browser.
 - No test/lint scripts; verify changes by curling endpoints and watching server logs.
 - As a pi extension: `pi --add ./extensions`, then `/cost start|stop|restart|status|open`.
@@ -29,7 +29,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **SPA:** vanilla JS, no build step. Hash routes `#/`, `#/projects`, `#/projects/:encoded`, `#/sessions/:id`. Regions in `public/app.js`: STATE, UTILS, URL_STATE, FETCH, RENDER_*, CHARTS, THEME, ROUTER, KEYBOARD, PI_INTEGRATION (`/pi-config`), INIT. Storage key prefix `pi-cost:`. Cost-source badges (`jsonl`/`pricing`) render via `srcBadge()`.
 
-**Port 3461** (3460 is sibling project `pi-kanban`, do not collide).
+**Port 5461** (3460 is sibling project `pi-kanban`, do not collide).
 
 **Extension (`extensions/cost.ts`):** TypeScript, ES2024 / NodeNext, `noEmit` (loaded by pi runtime directly). Lifecycle: `spawn(node, [serverPath], { detached, windowsHide })` + `probePort` polling; orphan cleanup via `netstat -ano` (win32) / `lsof` (posix) + `taskkill` / `SIGKILL`. Read-only — no kanban-style hooks.
 
