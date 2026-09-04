@@ -21,6 +21,8 @@ function getArg(name) {
 }
 
 const PORT = parseInt(getArg('port') || process.env.PORT || '5461', 10);
+// Bind to loopback only: the dashboard exposes local session data unauthenticated.
+const HOST = getArg('host') || process.env.HOST || '127.0.0.1';
 
 // #endregion
 
@@ -645,7 +647,7 @@ loadAllThemes().then(() => {
   console.log(`themes loaded: ${themes.size} (user dir: ${USER_THEME_DIR})`);
 }).catch((e) => console.warn('themes: load failed:', e.message));
 
-const server = http.createServer({ maxHeaderSize: 32768 }, app).listen(PORT, () => {
+const server = http.createServer({ maxHeaderSize: 32768 }, app).listen(PORT, HOST, () => {
   const actualPort = server.address().port;
   console.log(`pi-cost dashboard running at http://localhost:${actualPort}`);
   console.log(`Sessions dir: ${parsers.getSessionsDir()}`);
@@ -657,7 +659,7 @@ const server = http.createServer({ maxHeaderSize: 32768 }, app).listen(PORT, () 
 server.on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
     console.log(`Port ${PORT} in use, trying random port...`);
-    const fallback = http.createServer({ maxHeaderSize: 32768 }, app).listen(0, () => {
+    const fallback = http.createServer({ maxHeaderSize: 32768 }, app).listen(0, HOST, () => {
       const p = fallback.address().port;
       console.log(`pi-cost dashboard running at http://localhost:${p}`);
       if (process.argv.includes('--open')) {
