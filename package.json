@@ -32,6 +32,7 @@
   ],
   "scripts": {
     "start": "node server.js",
+    "test": "node --test",
     "dev": "node server.js --open",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
