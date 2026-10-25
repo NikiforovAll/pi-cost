@@ -3,7 +3,6 @@
 let currentView = 'overview';
 let overviewData = null;
 let insightsData = null;
-let projectsData = null;
 let sessionsData = null;
 let sessionsCostSeries = null;
 let sessionsModelDistribution = null;
@@ -11,12 +10,10 @@ let sessionDetailData = null;
 let currentProjectDir = null;
 let currentProjectName = null;
 let currentSessionId = null;
-let parentView = 'projects';
 let lastSelectedProject = null;
 let lastSelectedSession = null;
 const DEFAULT_SORT = {
   overview: { field: 'totalCost', order: 'desc' },
-  projects: { field: 'lastActive', order: 'desc' },
   sessions: { field: 'lastTimestamp', order: 'desc' },
 };
 const viewSort = structuredClone(DEFAULT_SORT);
@@ -226,19 +223,16 @@ function sortTh(field, label) {
   return `<th class="${on ? 'sorted' : ''}" onclick="sortBy('${escAttrJs(field)}')">${esc(label)} ${arrow}</th>`;
 }
 
-const PARENT_LABELS = { overview: 'Overview', projects: 'Projects' };
-
 function parentBreadcrumb() {
-  return `<a class="parent-breadcrumb">${esc(PARENT_LABELS[parentView] || 'Projects')}</a>`;
+  return '<a class="parent-breadcrumb">Overview</a>';
 }
 
-function projectsTable(rows, sort, withTokens) {
+function projectsTable(rows, sort) {
   return `<table class="data-table">
         <thead><tr>
           ${sortTh('name', 'Project')}
           ${sortTh('totalCost', 'Cost')}
           ${sortTh('sessions', 'Sessions')}
-          ${withTokens ? sortTh('totalTokens', 'Tokens') : ''}
           ${sortTh('lastActive', 'Last Active')}
           <th>Model</th>
         </tr></thead>
@@ -251,7 +245,6 @@ function projectsTable(rows, sort, withTokens) {
               <td title="${esc(p.cwd)}">${esc(p.name)}</td>
               <td class="cost-cell">${formatCost(p.totalCost)}</td>
               <td>${p.sessions}</td>
-              ${withTokens ? `<td>${formatTokens(p.totalTokens)}</td>` : ''}
               <td class="muted">${timeAgo(p.lastActive)}</td>
               <td><span class="model-badge">${esc(shortModel(p.primaryModel))}</span></td>
             </tr>`,
@@ -262,7 +255,7 @@ function projectsTable(rows, sort, withTokens) {
 }
 
 function focusPreviousRow(view) {
-  const key = view === 'sessions' ? lastSelectedSession : view === 'overview' || view === 'projects' ? lastSelectedProject : null;
+  const key = view === 'sessions' ? lastSelectedSession : view === 'overview' ? lastSelectedProject : null;
   if (!key) return;
   const selector = `tr[data-key="${CSS.escape(key)}"]`;
   requestAnimationFrame(() => {
@@ -276,7 +269,8 @@ function focusPreviousRow(view) {
 
 // #region URL_STATE
 
-const TOP_VIEWS = ['overview', 'insights', 'projects'];
+const TOP_VIEWS = ['overview', 'insights'];
+const VIEWS = [...TOP_VIEWS, 'sessions', 'detail'];
 
 function getUrlState() {
   let p = new URLSearchParams(window.location.search);
@@ -289,7 +283,6 @@ function getUrlState() {
     project: p.get('project'),
     projectName: p.get('projectName'),
     session: p.get('session'),
-    parentView: p.get('parentView') || 'projects',
   };
 }
 
@@ -427,7 +420,6 @@ function updateUrl(mode = 'push') {
   if (currentProjectDir) p.set('project', currentProjectDir);
   if (currentProjectName) p.set('projectName', currentProjectName);
   if (currentSessionId) p.set('session', currentSessionId);
-  if (parentView !== 'projects') p.set('parentView', parentView);
   if (EMBED) p.set('embed', '1');
   const qs = p.toString();
   const url = qs ? `?${qs}` : '/';
@@ -514,11 +506,6 @@ async function fetchInsights() {
   insightsData = await fetchJSON(`/api/insights?${rangeParams()}`);
 }
 
-async function fetchProjects() {
-  const data = await fetchJSON(`/api/projects?${rangeParams()}`);
-  projectsData = data.projects;
-}
-
 async function fetchSessions(projectDir) {
   const data = await fetchJSON(`/api/projects/${encodeURIComponent(projectDir)}/sessions?${rangeParams()}`, true);
   sessionsData = data.sessions || [];
@@ -551,7 +538,7 @@ function skeletonHtml(view) {
   </div>`;
   const table = `<div class="skel-table">${`<div>${line.repeat(4)}</div>`.repeat(6)}</div>`;
   const head = TOP_VIEWS.includes(view) ? '' : `<div class="breadcrumb">${line}</div>`;
-  const body = view === 'sessions' || view === 'projects' ? chartsRow + table : cards + chartsRow + table;
+  const body = view === 'sessions' ? chartsRow + table : cards + chartsRow + table;
   // The first JS skeleton replaces the static one from index.html; fading it in again would blink.
   const fade = booted ? ' skeleton-fade' : '';
   return `<div class="dashboard-content skeleton${esc(fade)}" aria-busy="true" aria-label="Loading">${head}${body}</div>`;
@@ -646,7 +633,7 @@ function renderOverview() {
         projects.length
           ? `
       <div class="section-title">Projects</div>
-      ${projectsTable(projects, viewSort.overview, false)}`
+      ${projectsTable(projects, viewSort.overview)}`
           : `<div class="empty-state"><div>No usage ${esc(rangeInLabel(dateRange))}</div></div>`
       }
     </div>`;
@@ -861,38 +848,6 @@ function renderInsights() {
     if (d.tools.length) renderToolsChart(d.tools);
     if (showWeekly) renderWeeklyChart(d.weekly);
   });
-}
-
-// #endregion
-
-// #region RENDER_PROJECTS
-
-function renderProjects() {
-  const el = document.getElementById('projects-view');
-  if (!el) return;
-  if (!projectsData) {
-    el.innerHTML = skeletonHtml('projects');
-    return;
-  }
-
-  const h = JSON.stringify({ projectsData, sort: viewSort.projects });
-  if (lastRenderHash.projects === h) return;
-  lastRenderHash.projects = h;
-
-  if (projectsData.length === 0) {
-    el.innerHTML = `<div class="dashboard-content"><div class="empty-state">
-      <div class="empty-icon">$</div>
-      <div>No project data ${esc(rangeInLabel(dateRange))}</div>
-      <div>pi-cost reads the sessions dir under the pi agent dir (PI_CODING_AGENT_DIR, default ~/.pi/agent).</div>
-    </div></div>`;
-    return;
-  }
-
-  el.innerHTML = `
-    <div class="dashboard-content">
-      <div class="section-title">All Projects</div>
-      ${projectsTable(projectsData, viewSort.projects, true)}
-    </div>`;
 }
 
 // #endregion
@@ -2633,14 +2588,13 @@ async function navigate(view, params, urlMode = 'push') {
   }
   if (view === 'sessions') currentSessionId = null;
 
-  setActiveNav(view === 'sessions' || view === 'detail' ? parentView : view);
+  setActiveNav(TOP_VIEWS.includes(view) ? view : 'overview');
   updateUrl(urlMode);
   await loadAndRender(view);
   if (view !== 'detail') selectRow(0);
 }
 
 async function navigateToSessions(projectDir, name) {
-  if (currentView === 'overview' || currentView === 'projects') parentView = currentView;
   lastSelectedProject = projectDir;
   currentProjectDir = projectDir;
   currentProjectName = name;
@@ -2668,7 +2622,6 @@ function sortBy(field) {
   updateUrl('replace');
   if (currentView === 'overview') renderOverview();
   else if (currentView === 'sessions') renderSessions();
-  else if (currentView === 'projects') renderProjects();
 }
 
 // The one entry point for a range change. The renderers are hash-gated, so the hash reset is what
@@ -2727,11 +2680,6 @@ async function loadAndRender(view) {
         if (myNav !== navCounter) return;
         renderInsights();
         break;
-      case 'projects':
-        await fetchProjects();
-        if (myNav !== navCounter) return;
-        renderProjects();
-        break;
       case 'sessions':
         if (currentProjectDir) {
           if (!sessionsData) {
@@ -2781,7 +2729,7 @@ function renderCurrentView() {
 function ensureViewElements() {
   const app = document.getElementById('app');
   if (!app) return;
-  for (const v of ['overview', 'insights', 'projects', 'sessions', 'detail']) {
+  for (const v of VIEWS) {
     if (!document.getElementById(`${v}-view`)) {
       const div = document.createElement('div');
       div.id = `${v}-view`;
@@ -2803,7 +2751,6 @@ const SHORTCUT_GROUPS = [
     rows: [
       { keys: ['1'], label: 'Overview' },
       { keys: ['2'], label: 'Insights' },
-      { keys: ['3'], label: 'Projects' },
       { keys: ['Backspace'], label: 'Go back' },
       { keys: ['Esc'], label: 'Close / back' },
     ],
@@ -2886,20 +2833,17 @@ async function goBack() {
       target = 'sessions';
       await navigate('sessions', { project: currentProjectDir, projectName: currentProjectName });
     } else {
-      target = parentView;
-      await navigate(parentView);
+      target = 'overview';
+      await navigate('overview');
     }
-  } else if (currentView === 'sessions') {
-    target = parentView;
-    await navigate(parentView);
-  } else if (currentView === 'projects' || currentView === 'insights') {
+  } else if (currentView === 'sessions' || currentView === 'insights') {
     target = 'overview';
     await navigate('overview');
   }
   if (target) focusPreviousRow(target);
 }
 
-const KEY_VIEWS = { 1: 'overview', 2: 'insights', 3: 'projects' };
+const KEY_VIEWS = { 1: 'overview', 2: 'insights' };
 
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
@@ -3071,9 +3015,8 @@ loadSort();
 
 document.addEventListener('click', async (e) => {
   if (e.target.matches('.parent-breadcrumb')) {
-    const target = parentView;
-    await navigate(target);
-    focusPreviousRow(target);
+    await navigate('overview');
+    focusPreviousRow('overview');
   }
 });
 
@@ -3085,12 +3028,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (state.session) {
     currentSessionId = state.session;
-    parentView = state.parentView;
     currentProjectDir = state.project;
     currentProjectName = state.projectName;
     await navigate('detail', { session: state.session }, 'replace');
   } else if (state.project) {
-    parentView = state.parentView;
     currentProjectDir = state.project;
     currentProjectName = state.projectName;
     await navigate('sessions', { project: state.project, projectName: state.projectName }, 'replace');
@@ -3101,15 +3042,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 window.addEventListener('popstate', () => {
   const p = new URLSearchParams(window.location.search);
-  currentView = p.get('view') || 'overview';
-  parentView = p.get('parentView') || 'projects';
+  currentView = VIEWS.includes(p.get('view')) ? p.get('view') : 'overview';
   currentProjectDir = p.get('project');
   currentProjectName = p.get('projectName');
   currentSessionId = p.get('session');
   if (p.has('session') && currentView === 'overview') currentView = 'detail';
   lastRenderHash = {};
   storageSet('sessionStorage', 'pi-cost:nav', p.toString());
-  setActiveNav(currentView === 'sessions' || currentView === 'detail' ? parentView : currentView);
+  setActiveNav(TOP_VIEWS.includes(currentView) ? currentView : 'overview');
   loadAndRender(currentView);
 });
 

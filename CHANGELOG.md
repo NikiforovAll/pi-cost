@@ -5,6 +5,7 @@
 ### Breaking changes
 
 - The server listens on `127.0.0.1` only. To reach it from another machine, start it with `--host 0.0.0.0 --allowed-hosts=<hostname>`.
+- The Projects tab is gone. The Overview lists the projects, and a click opens a project's sessions. `1` and `2` switch between Overview and Insights.
 
 ### Features
 

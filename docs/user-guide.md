@@ -76,7 +76,7 @@ Run from inside pi (the extension registers `/cost`):
 
 ## Layout
 
-The topbar has three tabs (Overview, Insights, Projects) and a date range picker. The picker has presets (today, 24 hours, 7/30/90 days, all time) and a two-month calendar for a custom from/to window. The choice is kept across reloads.
+The topbar has two tabs (Overview, Insights) and a date range picker. The picker has presets (today, 24 hours, 7/30/90 days, all time) and a two-month calendar for a custom from/to window. The choice is kept across reloads.
 
 ### Overview — `/`
 
@@ -90,7 +90,7 @@ Monthly run rate, cache savings, subagent share, compactions, token composition,
 
 ### Project — `/?view=sessions&project=<encoded>`
 
-Per-session list for one project, plus model totals for that project. `<encoded>` is the URL-encoded project directory (pi encodes paths like `--C--Users-foo-bar--` ↔ `C:\Users\foo\bar`).
+Per-session list for one project, plus model totals for that project. Click a project in the Overview to open it. `<encoded>` is the URL-encoded project directory (pi encodes paths like `--C--Users-foo-bar--` ↔ `C:\Users\foo\bar`).
 
 ![Project](https://raw.githubusercontent.com/NikiforovAll/pi-cost/main/assets/project.png)
 
@@ -141,7 +141,7 @@ Press `?` in the dashboard for the full list.
 
 | Key             | Action                       |
 | --------------- | ---------------------------- |
-| `1` / `2` / `3` | Overview / Insights / Projects |
+| `1` / `2`       | Overview / Insights          |
 | `j` / `k`       | Next / previous row          |
 | `Enter`         | Open selected row            |
 | `←` / `→`       | Pan the session range brush  |
