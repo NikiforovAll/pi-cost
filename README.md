@@ -27,7 +27,15 @@ Or run standalone:
 npx pi-cost
 ```
 
-Open `http://localhost:5461` — `npm run dev` auto-opens the browser.
+Open `http://localhost:5461` — `npm run dev` auto-opens the browser. pi-cost reads the agent dir in `PI_CODING_AGENT_DIR` (default `~/.pi/agent`).
+
+The same numbers from the command line:
+
+```sh
+npx pi-cost overview --range 30d
+npx pi-cost sessions --match refactor --json
+npx pi-cost help
+```
 
 ### From source
 
@@ -36,6 +44,7 @@ git clone https://github.com/NikiforovAll/pi-cost
 cd pi-cost
 npm install
 npm start              # http://localhost:5461
+npm test               # node:test suite on synthetic sessions
 pi --add ./extensions  # register as a pi extension
 ```
 

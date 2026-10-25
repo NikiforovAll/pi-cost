@@ -1,17 +1,23 @@
 # Theming
 
-pi-cost ships with four built-in themes and supports user-defined themes. Themes are simple JSON files declaring 14 design-token colors; derived `*-dim` / `*-glow` / `*-faint` / `*-soft` / `*-tag` / `chart-fill` variants are computed automatically at runtime.
+pi-cost ships with 18 built-in theme families and supports user-defined themes. Themes are simple JSON files declaring 14 design-token colors; derived `*-dim` / `*-glow` / `*-faint` / `*-soft` / `*-tag` / `chart-fill` variants are computed automatically at runtime.
 
 ## Built-in themes
 
-| ID              | Mode  | Accent    | Description                                       |
-| --------------- | ----- | --------- | ------------------------------------------------- |
-| `pi-light`      | light | `#2f5f8a` | pi.dev blue palette, light (default)              |
-| `pi-dark`       | dark  | `#6a9fcc` | pi.dev blue palette, dark (default)               |
-| `classic-light` | light | `#e86f33` | pi-cost's original orange palette, light          |
-| `classic-dark`  | dark  | `#e86f33` | pi-cost's original orange palette, dark           |
+Each family is a `<id>-light` / `<id>-dark` pair of JSON files in `themes/`.
 
-The toggle button in the topbar switches between the configured light and dark themes. When no preference is saved, the browser's `prefers-color-scheme` decides; an explicit choice persists in `localStorage.theme`.
+| Family | Accent (light / dark) | Description |
+| --- | --- | --- |
+| `pi` | `#2f5f8a` / `#6a9fcc` | pi.dev blue palette (default) |
+| `classic` | `#e86f33` / `#e86f33` | pi-cost's original orange palette |
+| `ayu`, `catppuccin`, `dracula`, `everforest`, `github`, `gruvbox`, `kanagawa`, `monokai`, `night-owl`, `nord`, `one-dark`, `rose-pine`, `solarized`, `synthwave`, `tokyo-night`, `vitesse` | per palette | Editor palettes |
+
+## Mode and color theme
+
+- The sun/moon button in the topbar (or `t`) switches between light and dark mode. When no preference is saved, the browser's `prefers-color-scheme` decides; an explicit choice persists in `localStorage.theme`.
+- The palette button opens the theme menu. Pick a family to use its light and dark themes; the choice persists in `localStorage["pi-cost:color-theme"]` for that browser. **Default** clears it and goes back to the themes from settings or environment (below).
+- Your own pair `<id>-light.json` / `<id>-dark.json` in the user theme dir shows up in the menu too. A single theme without its pair is still usable from settings, but not from the menu.
+- Inside pi-kanban (`?embed=1`) the board sends its own colors. pi-cost hides the mode button and the theme menu there and saves nothing.
 
 Same session view, two themes:
 
@@ -21,7 +27,7 @@ Same session view, two themes:
 
 ## Configuring themes
 
-Configure themes via `~/.pi/agent/cost/settings.json`:
+Configure themes via `<agent dir>/cost/settings.json` (default `~/.pi/agent/cost/settings.json`; the agent dir follows `PI_CODING_AGENT_DIR`):
 
 ```json
 {
@@ -32,7 +38,7 @@ Configure themes via `~/.pi/agent/cost/settings.json`:
 }
 ```
 
-The extension (`extensions/cost.ts`) reads this file when starting the server and forwards the values as environment variables.
+The server reads this file at start, so the same settings apply to `npm start`, the CLI and the `/cost` extension.
 
 ## Environment variable overrides
 
