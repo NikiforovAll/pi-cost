@@ -1,47 +1,25 @@
 import { spawn, spawnSync, type ChildProcess } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { createConnection } from "node:net";
-import { homedir } from "node:os";
-import { join as joinPath, resolve as resolvePath } from "node:path";
+import { resolve as resolvePath } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 const extDir = fileURLToPath(new URL('.', import.meta.url));
+const requireLib = createRequire(import.meta.url);
+const parsers = requireLib("../lib/pi-parsers-cost.js");
+const { readServerRecord, isAlive } = requireLib("../lib/cost-dir.js");
 
 let child: ChildProcess | null = null;
 let lastStderr = "";
-const port = 5461;
+const PREFERRED_PORT = 5461;
 
-const COST_DIR = joinPath(homedir(), ".pi", "agent", "cost");
-const SETTINGS_PATH = joinPath(COST_DIR, "settings.json");
-const DEFAULT_THEME_DIR = joinPath(COST_DIR, "themes");
+// The server follows the same agent dir as this pi (PI_CODING_AGENT_DIR, else ~/.pi/agent), so a
+// dev pi and the main pi each get their own dashboard. The server reads theme settings itself.
+const AGENT_DIR: string = parsers.getAgentDir();
+const COST_DIR: string = parsers.getCostDir();
 
-type CostSettings = {
-	themes?: { light?: string; dark?: string; dir?: string };
-};
-
-function readSettings(): CostSettings {
-	try {
-		return JSON.parse(readFileSync(SETTINGS_PATH, "utf8")) as CostSettings;
-	} catch (e: any) {
-		if (e?.code !== "ENOENT") console.warn(`pi-cost: cannot read ${SETTINGS_PATH}: ${e.message}`);
-		return {};
-	}
-}
-
-function buildServerEnv(): NodeJS.ProcessEnv {
-	const settings = readSettings();
-	const t = settings.themes ?? {};
-	const env: NodeJS.ProcessEnv = { ...process.env, PORT: String(port) };
-	env.COST_THEME_DIR = process.env.COST_THEME_DIR ?? t.dir ?? DEFAULT_THEME_DIR;
-	if (process.env.COST_LIGHT_THEME ?? t.light) {
-		env.COST_LIGHT_THEME = process.env.COST_LIGHT_THEME ?? t.light;
-	}
-	if (process.env.COST_DARK_THEME ?? t.dark) {
-		env.COST_DARK_THEME = process.env.COST_DARK_THEME ?? t.dark;
-	}
-	return env;
-}
+type ServerRecord = { pid: number; port: number };
 
 const SUBCOMMANDS = ["start", "stop", "restart", "status", "open"] as const;
 type Sub = (typeof SUBCOMMANDS)[number];
@@ -57,33 +35,23 @@ function probePort(p: number, timeoutMs = 250): Promise<boolean> {
 	});
 }
 
-async function waitForPort(p: number, totalMs = 5000): Promise<boolean> {
+async function runningServer(): Promise<ServerRecord | null> {
+	const rec: ServerRecord | null = readServerRecord(COST_DIR);
+	return rec && (await probePort(rec.port)) ? rec : null;
+}
+
+async function waitForServer(pid: number, totalMs = 8000): Promise<ServerRecord | null> {
 	const start = Date.now();
 	while (Date.now() - start < totalMs) {
-		if (await probePort(p)) return true;
+		const rec = await runningServer();
+		if (rec && rec.pid === pid) return rec;
 		await new Promise((r) => setTimeout(r, 150));
 	}
-	return false;
+	return null;
 }
 
 function splitArgs(args: string): string[] {
 	return args.trim().split(/\s+/).filter(Boolean);
-}
-
-function findPidsOnPort(p: number): number[] {
-	if (process.platform === "win32") {
-		const r = spawnSync("netstat", ["-ano", "-p", "tcp"], { encoding: "utf8" });
-		if (r.status !== 0) return [];
-		const pids = new Set<number>();
-		for (const line of r.stdout.split(/\r?\n/)) {
-			const m = line.match(/^\s*TCP\s+\S+:(\d+)\s+\S+\s+LISTENING\s+(\d+)/i);
-			if (m && Number(m[1]) === p) pids.add(Number(m[2]));
-		}
-		return [...pids];
-	}
-	const r = spawnSync("lsof", ["-tiTCP:" + p, "-sTCP:LISTEN"], { encoding: "utf8" });
-	if (r.status !== 0) return [];
-	return r.stdout.split(/\s+/).map((s) => Number(s)).filter((n) => Number.isFinite(n) && n > 0);
 }
 
 function killPid(pid: number): void {
@@ -96,18 +64,20 @@ function killPid(pid: number): void {
 
 export default function costExtension(pi: ExtensionAPI) {
 	const serverPath = resolvePath(extDir, "..", "server.js");
-	const url = `http://localhost:${port}`;
+	const urlOf = (rec: ServerRecord) => `http://localhost:${rec.port}`;
 
 	type Notify = (m: string, l?: "info" | "error") => void;
 
-	async function startServer(notify: Notify, opts: { silentSuccess?: boolean } = {}): Promise<boolean> {
-		if (await probePort(port)) {
-			notify(`pi-cost already listening on ${url} — run /cost open to launch it`);
-			return true;
+	async function startServer(notify: Notify, opts: { silentSuccess?: boolean } = {}): Promise<ServerRecord | null> {
+		const existing = await runningServer();
+		if (existing) {
+			if (!opts.silentSuccess) notify(`pi-cost already listening on ${urlOf(existing)} — run /cost open to launch it`);
+			return existing;
 		}
 		lastStderr = "";
-		child = spawn(process.execPath, [serverPath], {
-			env: buildServerEnv(),
+		// No --port: the server takes PORT, and a random port when that one is in use.
+		child = spawn(process.execPath, [serverPath, "--no-open"], {
+			env: { ...process.env, PI_CODING_AGENT_DIR: AGENT_DIR, PORT: String(PREFERRED_PORT) },
 			stdio: ["ignore", "ignore", "pipe"],
 			detached: true,
 			windowsHide: true,
@@ -115,35 +85,34 @@ export default function costExtension(pi: ExtensionAPI) {
 		child.stderr?.on("data", (b) => { lastStderr += b.toString(); });
 		child.on("exit", () => { child = null; });
 
-		if (!(await waitForPort(port))) {
+		const rec = child.pid ? await waitForServer(child.pid) : null;
+		if (!rec || !child) {
 			notify(`pi-cost failed to start.\n${lastStderr.slice(-500) || "(no stderr)"}`, "error");
-			return false;
+			return null;
 		}
 		child.stderr?.removeAllListeners("data");
 		child.stderr?.resume();
 		child.unref();
-		if (!opts.silentSuccess) notify(`pi-cost started → ${url} — run /cost open to launch it`);
-		return true;
+		if (!opts.silentSuccess) notify(`pi-cost started → ${urlOf(rec)} — run /cost open to launch it`);
+		return rec;
 	}
 
 	async function stopServer(notify: Notify, opts: { silentSuccess?: boolean } = {}): Promise<boolean> {
+		const rec = await runningServer();
 		if (child) child.kill("SIGINT");
 		child = null;
-
-		if (await probePort(port)) {
-			const pids = findPidsOnPort(port);
-			for (const pid of pids) killPid(pid);
-			await new Promise((r) => setTimeout(r, 300));
-			if (await probePort(port)) {
-				notify(`port ${port} still in use after killing pids ${pids.join(",") || "?"}`, "error");
-				return false;
-			}
-			if (!opts.silentSuccess) {
-				notify(`pi-cost stopped (killed orphan pid${pids.length > 1 ? "s" : ""} ${pids.join(",")})`);
-			}
+		if (!rec) {
+			if (!opts.silentSuccess) notify("pi-cost stopped");
 			return true;
 		}
-		if (!opts.silentSuccess) notify("pi-cost stopped");
+		await new Promise((r) => setTimeout(r, 300));
+		if (isAlive(rec.pid)) killPid(rec.pid);
+		await new Promise((r) => setTimeout(r, 300));
+		if (await probePort(rec.port)) {
+			notify(`port ${rec.port} still in use after killing pid ${rec.pid}`, "error");
+			return false;
+		}
+		if (!opts.silentSuccess) notify(`pi-cost stopped (pid ${rec.pid})`);
 		return true;
 	}
 
@@ -160,19 +129,20 @@ export default function costExtension(pi: ExtensionAPI) {
 			if (sub === "stop") { await stopServer(notify); return; }
 			if (sub === "restart") {
 				if (!(await stopServer(notify, { silentSuccess: true }))) return;
-				if (!(await startServer(notify, { silentSuccess: true }))) return;
-				notify(`pi-cost restarted → ${url}`);
+				const rec = await startServer(notify, { silentSuccess: true });
+				if (rec) notify(`pi-cost restarted → ${urlOf(rec)}`);
 				return;
 			}
 			if (sub === "status") {
-				const up = await probePort(port);
-				const owned = child ? ` (pid ${child.pid})` : " (external)";
-				notify(up ? `running on ${url}${owned}` : "not running");
+				const rec = await runningServer();
+				notify(rec ? `running on ${urlOf(rec)} (pid ${rec.pid}, agent dir ${AGENT_DIR})` : "not running");
 				return;
 			}
 			if (sub === "open") {
+				const rec = (await runningServer()) ?? (await startServer(notify, { silentSuccess: true }));
+				if (!rec) return;
 				const { default: open } = await import("open");
-				await open(url);
+				await open(urlOf(rec));
 				return;
 			}
 			notify(`Usage: /cost ${SUBCOMMANDS.join("|")}`, "error");
