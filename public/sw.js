@@ -1,5 +1,5 @@
-const CACHE_NAME = 'pi-cost-v3';
-const PRECACHE_URLS = ['/', '/style.css', '/app.js'];
+const CACHE_NAME = 'pi-cost-v4';
+const PRECACHE_URLS = ['/', '/style.css', '/app.js', '/fonts/fonts.css', '/vendor/chart.umd.min.js'];
 
 let cachePromise = null;
 function getCache() {
