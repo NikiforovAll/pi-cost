@@ -1,0 +1,21 @@
+{
+  "name": "synthwave-light",
+  "displayName": "Synthwave '84 Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#e6e2f0",
+    "bgSurface": "#efecf6",
+    "bgElevated": "#fbfafd",
+    "bgHover": "#ddd7ec",
+    "border": "#c5bcdd",
+    "textPrimary": "#241b2f",
+    "textSecondary": "#3d3455",
+    "textTertiary": "#5c5380",
+    "textMuted": "#7d76a3",
+    "accent": "#c936a6",
+    "accentText": "#9c2381",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

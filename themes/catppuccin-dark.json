@@ -1,0 +1,21 @@
+{
+  "name": "catppuccin-dark",
+  "displayName": "Catppuccin Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#11111b",
+    "bgSurface": "#181825",
+    "bgElevated": "#1e1e2e",
+    "bgHover": "#313244",
+    "border": "#45475a",
+    "textPrimary": "#cdd6f4",
+    "textSecondary": "#bac2de",
+    "textTertiary": "#a6adc8",
+    "textMuted": "#7f849c",
+    "accent": "#cba6f7",
+    "accentText": "#d8c2fa",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

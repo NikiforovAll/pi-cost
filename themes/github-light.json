@@ -1,0 +1,21 @@
+{
+  "name": "github-light",
+  "displayName": "GitHub Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#f0f2f4",
+    "bgSurface": "#f6f8fa",
+    "bgElevated": "#ffffff",
+    "bgHover": "#e8eaed",
+    "border": "#d1d5da",
+    "textPrimary": "#24292e",
+    "textSecondary": "#444d56",
+    "textTertiary": "#586069",
+    "textMuted": "#6a737d",
+    "accent": "#0366d6",
+    "accentText": "#044289",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

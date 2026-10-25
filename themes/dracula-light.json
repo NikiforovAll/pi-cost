@@ -1,0 +1,21 @@
+{
+  "name": "dracula-light",
+  "displayName": "Dracula Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#e8e8ee",
+    "bgSurface": "#f0f0f5",
+    "bgElevated": "#fbfbfd",
+    "bgHover": "#dfdfe8",
+    "border": "#c9c9d6",
+    "textPrimary": "#16161e",
+    "textSecondary": "#34343f",
+    "textTertiary": "#5a5a68",
+    "textMuted": "#787885",
+    "accent": "#7c3aed",
+    "accentText": "#5b21b6",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

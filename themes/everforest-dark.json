@@ -1,0 +1,21 @@
+{
+  "name": "everforest-dark",
+  "displayName": "Everforest Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#232a2e",
+    "bgSurface": "#2d353b",
+    "bgElevated": "#343f44",
+    "bgHover": "#3d484d",
+    "border": "#475258",
+    "textPrimary": "#d3c6aa",
+    "textSecondary": "#bfb6a3",
+    "textTertiary": "#9da9a0",
+    "textMuted": "#859289",
+    "accent": "#a7c080",
+    "accentText": "#c3d6a2",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

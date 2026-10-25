@@ -1,0 +1,21 @@
+{
+  "name": "one-dark-dark",
+  "displayName": "One Dark Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#21252b",
+    "bgSurface": "#282c34",
+    "bgElevated": "#2f343e",
+    "bgHover": "#3e4452",
+    "border": "#4b5263",
+    "textPrimary": "#d7dae0",
+    "textSecondary": "#abb2bf",
+    "textTertiary": "#8b919e",
+    "textMuted": "#5c6370",
+    "accent": "#61afef",
+    "accentText": "#8cc7ff",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

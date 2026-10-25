@@ -1,0 +1,21 @@
+{
+  "name": "vitesse-light",
+  "displayName": "Vitesse Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#f0f0f0",
+    "bgSurface": "#f7f7f7",
+    "bgElevated": "#ffffff",
+    "bgHover": "#e7e7e7",
+    "border": "#d6d6d6",
+    "textPrimary": "#393a34",
+    "textSecondary": "#4e4f47",
+    "textTertiary": "#6b6d63",
+    "textMuted": "#a0ada0",
+    "accent": "#1c6b48",
+    "accentText": "#145236",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "nord-light",
+  "displayName": "Nord Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#e5e9f0",
+    "bgSurface": "#eceff4",
+    "bgElevated": "#f8f9fb",
+    "bgHover": "#d8dee9",
+    "border": "#c2c9d6",
+    "textPrimary": "#2e3440",
+    "textSecondary": "#3b4252",
+    "textTertiary": "#4c566a",
+    "textMuted": "#6b7589",
+    "accent": "#5e81ac",
+    "accentText": "#44688f",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "dracula-dark",
+  "displayName": "Dracula Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#21222c",
+    "bgSurface": "#282a36",
+    "bgElevated": "#343746",
+    "bgHover": "#44475a",
+    "border": "#565a75",
+    "textPrimary": "#f8f8f2",
+    "textSecondary": "#d8d8d2",
+    "textTertiary": "#b0b3c5",
+    "textMuted": "#6272a4",
+    "accent": "#bd93f9",
+    "accentText": "#d6b5ff",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

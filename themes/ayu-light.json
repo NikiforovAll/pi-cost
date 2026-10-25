@@ -1,0 +1,21 @@
+{
+  "name": "ayu-light",
+  "displayName": "Ayu Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#eff1f3",
+    "bgSurface": "#f8f9fa",
+    "bgElevated": "#fcfcfc",
+    "bgHover": "#e7eaed",
+    "border": "#d8dde2",
+    "textPrimary": "#3d4149",
+    "textSecondary": "#5c6166",
+    "textTertiary": "#787b80",
+    "textMuted": "#8a9199",
+    "accent": "#c97612",
+    "accentText": "#a65e0c",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

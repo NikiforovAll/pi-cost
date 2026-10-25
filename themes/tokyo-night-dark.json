@@ -1,0 +1,21 @@
+{
+  "name": "tokyo-night-dark",
+  "displayName": "Tokyo Night Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#16161e",
+    "bgSurface": "#1a1b26",
+    "bgElevated": "#1f2335",
+    "bgHover": "#292e42",
+    "border": "#3b4261",
+    "textPrimary": "#c0caf5",
+    "textSecondary": "#a9b1d6",
+    "textTertiary": "#787c99",
+    "textMuted": "#565f89",
+    "accent": "#7aa2f7",
+    "accentText": "#9ab8ff",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

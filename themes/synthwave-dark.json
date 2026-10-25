@@ -1,0 +1,21 @@
+{
+  "name": "synthwave-dark",
+  "displayName": "Synthwave '84 Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#241b2f",
+    "bgSurface": "#262335",
+    "bgElevated": "#322a47",
+    "bgHover": "#3d3460",
+    "border": "#495495",
+    "textPrimary": "#ffffff",
+    "textSecondary": "#d8d6e8",
+    "textTertiary": "#b6b1d8",
+    "textMuted": "#848bbd",
+    "accent": "#ff7edb",
+    "accentText": "#ffa9e7",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

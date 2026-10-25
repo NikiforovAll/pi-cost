@@ -1,0 +1,21 @@
+{
+  "name": "everforest-light",
+  "displayName": "Everforest Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#ebeadb",
+    "bgSurface": "#f5f4e8",
+    "bgElevated": "#fbfbf4",
+    "bgHover": "#e5e4d3",
+    "border": "#d3d2bf",
+    "textPrimary": "#3d484e",
+    "textSecondary": "#55636b",
+    "textTertiary": "#66705f",
+    "textMuted": "#7a8577",
+    "accent": "#6f8352",
+    "accentText": "#56683f",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

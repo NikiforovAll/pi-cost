@@ -1,0 +1,21 @@
+{
+  "name": "kanagawa-light",
+  "displayName": "Kanagawa Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#e9e5d6",
+    "bgSurface": "#f3f0e4",
+    "bgElevated": "#faf8f1",
+    "bgHover": "#e2ddcb",
+    "border": "#d2ccb6",
+    "textPrimary": "#545464",
+    "textSecondary": "#66667a",
+    "textTertiary": "#716e61",
+    "textMuted": "#8a8775",
+    "accent": "#4d699b",
+    "accentText": "#38537f",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "ayu-dark",
+  "displayName": "Ayu Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#0d1017",
+    "bgSurface": "#10141c",
+    "bgElevated": "#141821",
+    "bgHover": "#1d2330",
+    "border": "#2d3343",
+    "textPrimary": "#bfbdb6",
+    "textSecondary": "#a8a6a0",
+    "textTertiary": "#8a9199",
+    "textMuted": "#6c7380",
+    "accent": "#e6b450",
+    "accentText": "#f0cd85",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

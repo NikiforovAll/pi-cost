@@ -1,0 +1,21 @@
+{
+  "name": "night-owl-dark",
+  "displayName": "Night Owl Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#011627",
+    "bgSurface": "#0b2942",
+    "bgElevated": "#13344f",
+    "bgHover": "#1d3b53",
+    "border": "#5f7e97",
+    "textPrimary": "#d6deeb",
+    "textSecondary": "#b8c5d6",
+    "textTertiary": "#8ba3b8",
+    "textMuted": "#637777",
+    "accent": "#82aaff",
+    "accentText": "#a8c4ff",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

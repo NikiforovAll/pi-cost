@@ -1,0 +1,21 @@
+{
+  "name": "catppuccin-light",
+  "displayName": "Catppuccin Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#e6e9ef",
+    "bgSurface": "#eff1f5",
+    "bgElevated": "#ffffff",
+    "bgHover": "#ccd0da",
+    "border": "#bcc0cc",
+    "textPrimary": "#4c4f69",
+    "textSecondary": "#5c5f77",
+    "textTertiary": "#6c6f85",
+    "textMuted": "#8c8fa1",
+    "accent": "#8839ef",
+    "accentText": "#6f2dbd",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

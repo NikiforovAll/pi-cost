@@ -1,0 +1,21 @@
+{
+  "name": "tokyo-night-light",
+  "displayName": "Tokyo Night Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#e1e2e7",
+    "bgSurface": "#e9eaf0",
+    "bgElevated": "#f7f8fc",
+    "bgHover": "#d0d5e3",
+    "border": "#a8aecb",
+    "textPrimary": "#343b58",
+    "textSecondary": "#565a6e",
+    "textTertiary": "#6c6e75",
+    "textMuted": "#848cb5",
+    "accent": "#2e7de9",
+    "accentText": "#1659c7",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

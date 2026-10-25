@@ -1,0 +1,21 @@
+{
+  "name": "night-owl-light",
+  "displayName": "Night Owl Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#ededed",
+    "bgSurface": "#f6f6f6",
+    "bgElevated": "#fbfbfb",
+    "bgHover": "#e2e2e2",
+    "border": "#d0d0d0",
+    "textPrimary": "#403f53",
+    "textSecondary": "#545167",
+    "textTertiary": "#6f6e85",
+    "textMuted": "#989fb1",
+    "accent": "#0c969b",
+    "accentText": "#0a7479",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

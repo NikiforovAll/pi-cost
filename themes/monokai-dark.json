@@ -1,0 +1,21 @@
+{
+  "name": "monokai-dark",
+  "displayName": "Monokai Pro Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#221f22",
+    "bgSurface": "#2d2a2e",
+    "bgElevated": "#403e41",
+    "bgHover": "#4a484b",
+    "border": "#5b595c",
+    "textPrimary": "#fcfcfa",
+    "textSecondary": "#d9d8d6",
+    "textTertiary": "#939293",
+    "textMuted": "#727072",
+    "accent": "#ffd866",
+    "accentText": "#ffe6a0",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

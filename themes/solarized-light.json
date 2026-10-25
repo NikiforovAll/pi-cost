@@ -1,0 +1,21 @@
+{
+  "name": "solarized-light",
+  "displayName": "Solarized Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#eee8d5",
+    "bgSurface": "#fdf6e3",
+    "bgElevated": "#fffbef",
+    "bgHover": "#efe8d3",
+    "border": "#cdc4ab",
+    "textPrimary": "#073642",
+    "textSecondary": "#4f6369",
+    "textTertiary": "#586e75",
+    "textMuted": "#728589",
+    "accent": "#2280c2",
+    "accentText": "#1b6aa3",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

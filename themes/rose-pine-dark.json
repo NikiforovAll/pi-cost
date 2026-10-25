@@ -1,0 +1,21 @@
+{
+  "name": "rose-pine-dark",
+  "displayName": "Rosé Pine Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#191724",
+    "bgSurface": "#1f1d2e",
+    "bgElevated": "#26233a",
+    "bgHover": "#34304e",
+    "border": "#403d52",
+    "textPrimary": "#e0def4",
+    "textSecondary": "#c5c2dd",
+    "textTertiary": "#908caa",
+    "textMuted": "#6e6a86",
+    "accent": "#c4a7e7",
+    "accentText": "#d9c4f2",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

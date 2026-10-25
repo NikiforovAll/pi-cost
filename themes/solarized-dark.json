@@ -1,0 +1,21 @@
+{
+  "name": "solarized-dark",
+  "displayName": "Solarized Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#002b36",
+    "bgSurface": "#073642",
+    "bgElevated": "#0a4250",
+    "bgHover": "#11505f",
+    "border": "#586e75",
+    "textPrimary": "#e2dfd0",
+    "textSecondary": "#b7c0bf",
+    "textTertiary": "#93a1a1",
+    "textMuted": "#839496",
+    "accent": "#c96f47",
+    "accentText": "#d48a6a",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

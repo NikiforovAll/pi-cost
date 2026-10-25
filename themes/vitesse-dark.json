@@ -1,0 +1,21 @@
+{
+  "name": "vitesse-dark",
+  "displayName": "Vitesse Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#121212",
+    "bgSurface": "#181818",
+    "bgElevated": "#1e1e1e",
+    "bgHover": "#262626",
+    "border": "#333333",
+    "textPrimary": "#dbd7ca",
+    "textSecondary": "#bfbaaa",
+    "textTertiary": "#8f8f85",
+    "textMuted": "#758575",
+    "accent": "#4d9375",
+    "accentText": "#6fb392",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

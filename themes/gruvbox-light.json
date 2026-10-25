@@ -1,0 +1,21 @@
+{
+  "name": "gruvbox-light",
+  "displayName": "Gruvbox Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#ede7d5",
+    "bgSurface": "#f3eee0",
+    "bgElevated": "#faf7ec",
+    "bgHover": "#e4dcc6",
+    "border": "#c9bc9d",
+    "textPrimary": "#3c3836",
+    "textSecondary": "#504945",
+    "textTertiary": "#665c54",
+    "textMuted": "#7c6f64",
+    "accent": "#d65d0e",
+    "accentText": "#af3a03",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

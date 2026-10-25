@@ -1,0 +1,21 @@
+{
+  "name": "github-dark",
+  "displayName": "GitHub Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#1f2428",
+    "bgSurface": "#24292e",
+    "bgElevated": "#2b3138",
+    "bgHover": "#2f363d",
+    "border": "#444d56",
+    "textPrimary": "#e1e4e8",
+    "textSecondary": "#d1d5da",
+    "textTertiary": "#959da5",
+    "textMuted": "#6a737d",
+    "accent": "#58a6ff",
+    "accentText": "#85bdff",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

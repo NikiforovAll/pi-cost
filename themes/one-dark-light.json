@@ -1,0 +1,21 @@
+{
+  "name": "one-dark-light",
+  "displayName": "One Dark Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#eaeaeb",
+    "bgSurface": "#fafafa",
+    "bgElevated": "#ffffff",
+    "bgHover": "#e0e0e2",
+    "border": "#d4d4d6",
+    "textPrimary": "#383a42",
+    "textSecondary": "#50525a",
+    "textTertiary": "#696c77",
+    "textMuted": "#a0a1a7",
+    "accent": "#4078f2",
+    "accentText": "#2c5dd4",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

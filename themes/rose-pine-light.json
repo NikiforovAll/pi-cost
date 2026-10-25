@@ -1,0 +1,21 @@
+{
+  "name": "rose-pine-light",
+  "displayName": "Rosé Pine Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#f2e9e1",
+    "bgSurface": "#faf4ed",
+    "bgElevated": "#fffaf3",
+    "bgHover": "#ebdfd4",
+    "border": "#cecacd",
+    "textPrimary": "#575279",
+    "textSecondary": "#635e87",
+    "textTertiary": "#6e6a88",
+    "textMuted": "#857f96",
+    "accent": "#907aa9",
+    "accentText": "#6f598c",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

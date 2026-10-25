@@ -1,0 +1,21 @@
+{
+  "name": "monokai-light",
+  "displayName": "Monokai Pro Light",
+  "mode": "light",
+  "colors": {
+    "bgDeep": "#e9e6e4",
+    "bgSurface": "#f1efed",
+    "bgElevated": "#fcfbfa",
+    "bgHover": "#e0dcda",
+    "border": "#cdc8c5",
+    "textPrimary": "#2c292d",
+    "textSecondary": "#46434a",
+    "textTertiary": "#6b686d",
+    "textMuted": "#8d8a8d",
+    "accent": "#c08a00",
+    "accentText": "#856000",
+    "success": "#1a8a5a",
+    "warning": "#b07d0a",
+    "error": "#c53030"
+  }
+}

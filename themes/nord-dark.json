@@ -1,0 +1,21 @@
+{
+  "name": "nord-dark",
+  "displayName": "Nord Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#272c36",
+    "bgSurface": "#2e3440",
+    "bgElevated": "#3b4252",
+    "bgHover": "#434c5e",
+    "border": "#4c566a",
+    "textPrimary": "#eceff4",
+    "textSecondary": "#d8dee9",
+    "textTertiary": "#aeb6c5",
+    "textMuted": "#7b88a1",
+    "accent": "#88c0d0",
+    "accentText": "#a8d8e8",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}

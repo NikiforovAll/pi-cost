@@ -1,0 +1,21 @@
+{
+  "name": "kanagawa-dark",
+  "displayName": "Kanagawa Dark",
+  "mode": "dark",
+  "colors": {
+    "bgDeep": "#16161d",
+    "bgSurface": "#1f1f28",
+    "bgElevated": "#2a2a37",
+    "bgHover": "#363646",
+    "border": "#54546d",
+    "textPrimary": "#dcd7ba",
+    "textSecondary": "#c8c093",
+    "textTertiary": "#a6a69c",
+    "textMuted": "#727169",
+    "accent": "#7e9cd8",
+    "accentText": "#9fb9ec",
+    "success": "#3ecf8e",
+    "warning": "#f0b429",
+    "error": "#ef4444"
+  }
+}
